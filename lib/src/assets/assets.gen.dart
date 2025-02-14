@@ -12,91 +12,97 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart' as _svg;
 import 'package:vector_graphics/vector_graphics.dart' as _vg;
 
-class $AssetsCoffeeShopGen {
-  const $AssetsCoffeeShopGen();
+class $AssetsCoffeeAppGen {
+  const $AssetsCoffeeAppGen();
 
-  /// Directory path: assets/coffee_shop/icons
-  $AssetsCoffeeShopIconsGen get icons => const $AssetsCoffeeShopIconsGen();
+  /// Directory path: assets/coffee_app/icons
+  $AssetsCoffeeAppIconsGen get icons => const $AssetsCoffeeAppIconsGen();
 
-  /// Directory path: assets/coffee_shop/images
-  $AssetsCoffeeShopImagesGen get images => const $AssetsCoffeeShopImagesGen();
+  /// Directory path: assets/coffee_app/images
+  $AssetsCoffeeAppImagesGen get images => const $AssetsCoffeeAppImagesGen();
 }
 
-class $AssetsCoffeeShopIconsGen {
-  const $AssetsCoffeeShopIconsGen();
+class $AssetsCoffeeAppIconsGen {
+  const $AssetsCoffeeAppIconsGen();
 
-  /// File path: assets/coffee_shop/icons/bag.svg
-  SvgGenImage get bag => const SvgGenImage('assets/coffee_shop/icons/bag.svg');
+  /// File path: assets/coffee_app/icons/bag.svg
+  SvgGenImage get bag => const SvgGenImage('assets/coffee_app/icons/bag.svg');
 
-  /// File path: assets/coffee_shop/icons/heart.svg
+  /// File path: assets/coffee_app/icons/heart.svg
   SvgGenImage get heart =>
-      const SvgGenImage('assets/coffee_shop/icons/heart.svg');
+      const SvgGenImage('assets/coffee_app/icons/heart.svg');
 
-  /// File path: assets/coffee_shop/icons/home.svg
-  SvgGenImage get home =>
-      const SvgGenImage('assets/coffee_shop/icons/home.svg');
+  /// File path: assets/coffee_app/icons/home.svg
+  SvgGenImage get home => const SvgGenImage('assets/coffee_app/icons/home.svg');
 
-  /// File path: assets/coffee_shop/icons/more.svg
-  SvgGenImage get more =>
-      const SvgGenImage('assets/coffee_shop/icons/more.svg');
+  /// File path: assets/coffee_app/icons/more.svg
+  SvgGenImage get more => const SvgGenImage('assets/coffee_app/icons/more.svg');
 
-  /// File path: assets/coffee_shop/icons/notification.svg
+  /// File path: assets/coffee_app/icons/notification.svg
   SvgGenImage get notification =>
-      const SvgGenImage('assets/coffee_shop/icons/notification.svg');
+      const SvgGenImage('assets/coffee_app/icons/notification.svg');
 
-  /// File path: assets/coffee_shop/icons/search.svg
+  /// File path: assets/coffee_app/icons/search.svg
   SvgGenImage get search =>
-      const SvgGenImage('assets/coffee_shop/icons/search.svg');
+      const SvgGenImage('assets/coffee_app/icons/search.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values =>
-      [bag, heart, home, more, notification, search];
+  List<SvgGenImage> get values => [
+    bag,
+    heart,
+    home,
+    more,
+    notification,
+    search,
+  ];
 }
 
-class $AssetsCoffeeShopImagesGen {
-  const $AssetsCoffeeShopImagesGen();
+class $AssetsCoffeeAppImagesGen {
+  const $AssetsCoffeeAppImagesGen();
 
-  /// File path: assets/coffee_shop/images/coffee_1.png
+  /// File path: assets/coffee_app/images/coffee_1.png
   AssetGenImage get coffee1 =>
-      const AssetGenImage('assets/coffee_shop/images/coffee_1.png');
+      const AssetGenImage('assets/coffee_app/images/coffee_1.png');
 
-  /// File path: assets/coffee_shop/images/coffee_2.png
+  /// File path: assets/coffee_app/images/coffee_2.png
   AssetGenImage get coffee2 =>
-      const AssetGenImage('assets/coffee_shop/images/coffee_2.png');
+      const AssetGenImage('assets/coffee_app/images/coffee_2.png');
 
-  /// File path: assets/coffee_shop/images/coffee_3.png
+  /// File path: assets/coffee_app/images/coffee_3.png
   AssetGenImage get coffee3 =>
-      const AssetGenImage('assets/coffee_shop/images/coffee_3.png');
+      const AssetGenImage('assets/coffee_app/images/coffee_3.png');
 
-  /// File path: assets/coffee_shop/images/coffee_4.png
+  /// File path: assets/coffee_app/images/coffee_4.png
   AssetGenImage get coffee4 =>
-      const AssetGenImage('assets/coffee_shop/images/coffee_4.png');
+      const AssetGenImage('assets/coffee_app/images/coffee_4.png');
 
-  /// File path: assets/coffee_shop/images/coffee_5.png
+  /// File path: assets/coffee_app/images/coffee_5.png
   AssetGenImage get coffee5 =>
-      const AssetGenImage('assets/coffee_shop/images/coffee_5.png');
+      const AssetGenImage('assets/coffee_app/images/coffee_5.png');
 
-  /// File path: assets/coffee_shop/images/onboarding_bg.png
-  AssetGenImage get onboardingBg =>
-      const AssetGenImage('assets/coffee_shop/images/onboarding_bg.png');
+  /// File path: assets/coffee_app/images/welcome_bg.png
+  AssetGenImage get welcomeBg =>
+      const AssetGenImage('assets/coffee_app/images/welcome_bg.png');
 
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [coffee1, coffee2, coffee3, coffee4, coffee5, onboardingBg];
+  List<AssetGenImage> get values => [
+    coffee1,
+    coffee2,
+    coffee3,
+    coffee4,
+    coffee5,
+    welcomeBg,
+  ];
 }
 
 class Assets {
   const Assets._();
 
-  static const $AssetsCoffeeShopGen coffeeShop = $AssetsCoffeeShopGen();
+  static const $AssetsCoffeeAppGen coffeeApp = $AssetsCoffeeAppGen();
 }
 
 class AssetGenImage {
-  const AssetGenImage(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  });
+  const AssetGenImage(this._assetName, {this.size, this.flavors = const {}});
 
   final String _assetName;
 
@@ -156,15 +162,8 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider({
-    AssetBundle? bundle,
-    String? package,
-  }) {
-    return AssetImage(
-      _assetName,
-      bundle: bundle,
-      package: package,
-    );
+  ImageProvider provider({AssetBundle? bundle, String? package}) {
+    return AssetImage(_assetName, bundle: bundle, package: package);
   }
 
   String get path => _assetName;
@@ -173,17 +172,11 @@ class AssetGenImage {
 }
 
 class SvgGenImage {
-  const SvgGenImage(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  }) : _isVecFormat = false;
+  const SvgGenImage(this._assetName, {this.size, this.flavors = const {}})
+    : _isVecFormat = false;
 
-  const SvgGenImage.vec(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  }) : _isVecFormat = true;
+  const SvgGenImage.vec(this._assetName, {this.size, this.flavors = const {}})
+    : _isVecFormat = true;
 
   final String _assetName;
   final Size? size;
@@ -237,7 +230,8 @@ class SvgGenImage {
       placeholderBuilder: placeholderBuilder,
       semanticsLabel: semanticsLabel,
       excludeFromSemantics: excludeFromSemantics,
-      colorFilter: colorFilter ??
+      colorFilter:
+          colorFilter ??
           (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
       clipBehavior: clipBehavior,
       cacheColorFilter: cacheColorFilter,
