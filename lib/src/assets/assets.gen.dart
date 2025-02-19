@@ -58,9 +58,6 @@ class $AssetsCoffeeAppIconsGen {
   SvgGenImage get search =>
       const SvgGenImage('assets/coffee_app/icons/search.svg');
 
-  /// File path: assets/coffee_app/icons/star.svg
-  SvgGenImage get star => const SvgGenImage('assets/coffee_app/icons/star.svg');
-
   /// List of all assets
   List<SvgGenImage> get values => [
     bag,
@@ -72,7 +69,6 @@ class $AssetsCoffeeAppIconsGen {
     more,
     notification,
     search,
-    star,
   ];
 }
 
