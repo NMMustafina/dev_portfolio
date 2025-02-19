@@ -1,7 +1,4 @@
-import 'dart:async';
-
 import 'package:auto_route/auto_route.dart';
-import 'package:dev_portfolio/coffee_app/theme/coffee_theme.dart';
 import 'package:dev_portfolio/src/src.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +7,7 @@ class CoffeeHomeScreen extends StatefulWidget {
   const CoffeeHomeScreen({super.key});
 
   @override
-  _CoffeeHomeScreenState createState() => _CoffeeHomeScreenState();
+  State<CoffeeHomeScreen> createState() => _CoffeeHomeScreenState();
 }
 
 class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
@@ -24,182 +21,211 @@ class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: CoffeeTheme().themeData,
-      child: Scaffold(
-        backgroundColor: Color(0xFFF9F9F9),
-        bottomNavigationBar: BottomNavigationBar(
-          items: [
-            BottomNavigationBarItem(
-                icon: Assets.coffeeApp.icons.home
-                    .svg(height: 24, color: Color(0xFFC67C4E)),
-                label: ''),
-            BottomNavigationBarItem(
-                icon: Assets.coffeeApp.icons.heart
-                    .svg(height: 24, color: Color(0xFFA2A2A2)),
-                label: ''),
-            BottomNavigationBarItem(
-                icon: Assets.coffeeApp.icons.bag
-                    .svg(height: 24, color: Color(0xFFA2A2A2)),
-                label: ''),
-            BottomNavigationBarItem(
-                icon: Assets.coffeeApp.icons.notification
-                    .svg(height: 24, color: Color(0xFFA2A2A2)),
-                label: ''),
-          ],
-        ),
-        body: Stack(
-          children: [
-            Container(
-              height: 280,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                  colors: [
-                    Color(0xFF111111),
-                    Color(0xFF313131),
-                  ],
+    return Scaffold(
+      backgroundColor: Color(0xFFF9F9F9),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+              icon: Assets.coffeeApp.icons.home.svg(
+                height: 24,
+                width: 24,
+                colorFilter: ColorFilter.mode(
+                  Color(0xFFC67C4E),
+                  BlendMode.srcIn,
                 ),
               ),
+              label: ''),
+          BottomNavigationBarItem(
+              icon: Assets.coffeeApp.icons.heart.svg(
+                height: 24,
+                width: 24,
+                colorFilter: ColorFilter.mode(
+                  Color(0xFFA2A2A2),
+                  BlendMode.srcIn,
+                ),
+              ),
+              label: ''),
+          BottomNavigationBarItem(
+              icon: Assets.coffeeApp.icons.bag.svg(
+                height: 24,
+                width: 24,
+                colorFilter: ColorFilter.mode(
+                  Color(0xFFA2A2A2),
+                  BlendMode.srcIn,
+                ),
+              ),
+              label: ''),
+          BottomNavigationBarItem(
+              icon: Assets.coffeeApp.icons.notification.svg(
+                height: 24,
+                width: 24,
+                colorFilter: ColorFilter.mode(
+                  Color(0xFFA2A2A2),
+                  BlendMode.srcIn,
+                ),
+              ),
+              label: ''),
+        ],
+      ),
+      body: Stack(
+        children: [
+          Container(
+            height: 280,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                colors: [
+                  Color(0xFF111111),
+                  Color(0xFF313131),
+                ],
+              ),
             ),
-            SafeArea(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 10),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Location",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xFFA2A2A2),
-                          ),
+          ),
+          SafeArea(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Location",
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xFFA2A2A2),
                         ),
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              "Bilzen, Tanjungbalai",
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xFFD8D8D8),
-                              ),
-                            ),
-                            SizedBox(width: 4),
-                            Icon(
-                              Icons.keyboard_arrow_down,
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            "Warsaw, Poland",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
                               color: Color(0xFFD8D8D8),
-                              size: 16,
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 24),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextField(
-                            decoration: InputDecoration(
-                              hintText: "Search coffee",
-                              prefixIcon: Padding(
-                                padding: EdgeInsets.all(12),
-                                child: SizedBox(
-                                  height: 20,
-                                  width: 20,
-                                  child: Assets.coffeeApp.icons.search.svg(
-                                    color: Colors.white,
+                          ),
+                          SizedBox(width: 4),
+                          Icon(
+                            Icons.keyboard_arrow_down,
+                            color: Color(0xFFD8D8D8),
+                            size: 16,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 24),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          decoration: InputDecoration(
+                            hintText: "Search coffee",
+                            prefixIcon: Padding(
+                              padding: EdgeInsets.all(12),
+                              child: SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: Assets.coffeeApp.icons.search.svg(
+                                  colorFilter: ColorFilter.mode(
+                                    Colors.white,
+                                    BlendMode.srcIn,
                                   ),
                                 ),
                               ),
-                              filled: true,
-                              fillColor: Colors.grey[800],
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: BorderSide.none,
-                              ),
-                              hintStyle: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xFFA2A2A2),
-                              ),
                             ),
-                            style: TextStyle(color: Colors.white),
+                            filled: true,
+                            fillColor: Colors.grey[800],
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide.none,
+                            ),
+                            hintStyle: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xFFA2A2A2),
+                            ),
                           ),
+                          style: TextStyle(color: Colors.white),
                         ),
-                        SizedBox(width: 16),
-                        Container(
-                          width: 52,
-                          height: 52,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFC67C4E),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Center(
-                            child: Assets.coffeeApp.icons.filter.svg(
-                              height: 20,
-                              width: 20,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 24),
-                    PromoCard(),
-                    SizedBox(height: 16),
-                    CategoryTabs(),
-                    SizedBox(height: 16),
-                    Expanded(
-                      child: FutureBuilder<List<CoffeeData>>(
-                        future: _coffeeFuture,
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return Center(child: CircularProgressIndicator());
-                          } else if (snapshot.hasError) {
-                            return Center(
-                                child: Text('Error: ${snapshot.error}'));
-                          } else if (!snapshot.hasData ||
-                              snapshot.data!.isEmpty) {
-                            return Center(child: Text('No coffee found'));
-                          }
-                          final coffeeList = snapshot.data!;
-                          return GridView.builder(
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10,
-                              childAspectRatio: 0.7,
-                            ),
-                            itemCount: coffeeList.length,
-                            itemBuilder: (context, index) {
-                              return CoffeeCard(coffee: coffeeList[index]);
-                            },
-                          );
-                        },
                       ),
+                      SizedBox(width: 16),
+                      Container(
+                        width: 52,
+                        height: 52,
+                        decoration: BoxDecoration(
+                          color: Color(0xFFC67C4E),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Center(
+                          child: Assets.coffeeApp.icons.filter.svg(
+                            height: 20,
+                            width: 20,
+                            colorFilter: ColorFilter.mode(
+                              Colors.white,
+                              BlendMode.srcIn,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 24),
+                  PromoCard(),
+                  SizedBox(height: 16),
+                  CategoryTabs(),
+                  SizedBox(height: 16),
+                  Expanded(
+                    child: FutureBuilder<List<CoffeeData>>(
+                      future: _coffeeFuture,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(child: CircularProgressIndicator());
+                        } else if (snapshot.hasError) {
+                          return Center(
+                              child: Text('Error: ${snapshot.error}'));
+                        } else if (!snapshot.hasData ||
+                            snapshot.data!.isEmpty) {
+                          return Center(child: Text('No coffee found'));
+                        }
+                        final coffeeList = snapshot.data!;
+                        return GridView.builder(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
+                            childAspectRatio: 0.7,
+                          ),
+                          itemCount: coffeeList.length,
+                          itemBuilder: (context, index) {
+                            return CoffeeCard(coffee: coffeeList[index]);
+                          },
+                        );
+                      },
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 }
 
 class PromoCard extends StatelessWidget {
+  const PromoCard({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -285,6 +311,8 @@ class PromoCard extends StatelessWidget {
 }
 
 class CategoryTabs extends StatelessWidget {
+  const CategoryTabs({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -312,7 +340,7 @@ class CategoryButton extends StatelessWidget {
   final String text;
   final bool isSelected;
 
-  CategoryButton(this.text, {this.isSelected = false});
+  const CategoryButton(this.text, {super.key, this.isSelected = false});
 
   @override
   Widget build(BuildContext context) {
@@ -420,7 +448,7 @@ class CoffeeCard extends StatelessWidget {
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.2),
+                      color: Color.fromRGBO(0, 0, 0, 0.2),
                       borderRadius: BorderRadius.only(
                         topRight: Radius.circular(15),
                         bottomLeft: Radius.circular(30),

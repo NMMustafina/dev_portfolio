@@ -1,9 +1,7 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:dev_portfolio/router/router.dart';
+import 'package:dev_portfolio/coffee_app/features/features.dart';
 import 'package:dev_portfolio/src/src.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage()
 class CoffeeWelcomeScreen extends StatelessWidget {
   const CoffeeWelcomeScreen({super.key});
 
@@ -30,7 +28,6 @@ class CoffeeWelcomeScreen extends StatelessWidget {
                         'Fall in Love with Coffee in Blissful Delight!',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontFamily: FontFamily.sora,
                           fontSize: 32,
                           fontWeight: FontWeight.w600,
                           color: Colors.white,
@@ -42,7 +39,6 @@ class CoffeeWelcomeScreen extends StatelessWidget {
                         'Welcome to our cozy coffee corner, where every cup is a delightful for you.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontFamily: FontFamily.sora,
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
                           color: Color(0xFFA2A2A2),
@@ -53,8 +49,12 @@ class CoffeeWelcomeScreen extends StatelessWidget {
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: () =>
-                              context.router.push(const CoffeeHomeRoute()),
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CoffeeHomeScreen(),
+                            ),
+                          ),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFFC67C4E),
                             shape: RoundedRectangleBorder(
@@ -65,7 +65,6 @@ class CoffeeWelcomeScreen extends StatelessWidget {
                           child: const Text(
                             'Get Started',
                             style: TextStyle(
-                              fontFamily: FontFamily.sora,
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
                               color: Colors.white,

@@ -1,9 +1,7 @@
-import 'package:auto_route/auto_route.dart';
+import 'package:dev_portfolio/fitness_app/features/features.dart';
 import 'package:dev_portfolio/fitness_app/theme/fitness_theme.dart';
-import 'package:dev_portfolio/router/router.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage()
 class FitnessWelcomeScreen extends StatelessWidget {
   const FitnessWelcomeScreen({super.key});
 
@@ -20,7 +18,10 @@ class FitnessWelcomeScreen extends StatelessWidget {
               Text("Fitness Welcome Screen"),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () => context.router.push(const FitnessHomeRoute()),
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => FitnessHomeScreen()),
+                ),
                 child: Text("Go to Home Page"),
               ),
             ],
