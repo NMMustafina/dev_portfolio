@@ -1,4 +1,5 @@
 import 'package:dev_portfolio/coffee_app/features/features.dart';
+import 'package:dev_portfolio/coffee_app/theme/coffee_theme.dart';
 import 'package:dev_portfolio/src/src.dart';
 import 'package:flutter/material.dart';
 
@@ -7,8 +8,9 @@ class CoffeeWelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: const Color(0xFF000000),
+      backgroundColor: CoffeeTheme.darkBackgroundColor,
       body: Stack(
         children: [
           Assets.coffeeApp.images.welcomeBg.image(
@@ -24,26 +26,16 @@ class CoffeeWelcomeScreen extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Text(
+                      Text(
                         'Fall in Love with Coffee in Blissful Delight!',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                          height: 1.5,
-                        ),
+                        style: theme.textTheme.headlineLarge,
                       ),
                       const SizedBox(height: 8),
-                      const Text(
+                      Text(
                         'Welcome to our cozy coffee corner, where every cup is a delightful for you.',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xFFA2A2A2),
-                          height: 1.5,
-                        ),
+                        style: theme.textTheme.bodyMedium,
                       ),
                       const SizedBox(height: 32),
                       SizedBox(
@@ -55,20 +47,9 @@ class CoffeeWelcomeScreen extends StatelessWidget {
                               builder: (context) => CoffeeHomeScreen(),
                             ),
                           ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFFC67C4E),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            padding: const EdgeInsets.symmetric(vertical: 16.0),
-                          ),
+                          style: theme.elevatedButtonTheme.style,
                           child: const Text(
                             'Get Started',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
-                            ),
                           ),
                         ),
                       ),

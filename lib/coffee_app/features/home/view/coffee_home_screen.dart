@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:dev_portfolio/coffee_app/theme/coffee_theme.dart';
 import 'package:dev_portfolio/src/src.dart';
 import 'package:flutter/material.dart';
 
@@ -21,8 +22,9 @@ class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Color(0xFFF9F9F9),
+      backgroundColor: theme.scaffoldBackgroundColor,
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
@@ -30,7 +32,7 @@ class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
                 height: 24,
                 width: 24,
                 colorFilter: ColorFilter.mode(
-                  Color(0xFFC67C4E),
+                  theme.primaryColor,
                   BlendMode.srcIn,
                 ),
               ),
@@ -40,7 +42,7 @@ class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
                 height: 24,
                 width: 24,
                 colorFilter: ColorFilter.mode(
-                  Color(0xFFA2A2A2),
+                  theme.secondaryHeaderColor,
                   BlendMode.srcIn,
                 ),
               ),
@@ -50,7 +52,7 @@ class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
                 height: 24,
                 width: 24,
                 colorFilter: ColorFilter.mode(
-                  Color(0xFFA2A2A2),
+                  theme.secondaryHeaderColor,
                   BlendMode.srcIn,
                 ),
               ),
@@ -60,7 +62,7 @@ class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
                 height: 24,
                 width: 24,
                 colorFilter: ColorFilter.mode(
-                  Color(0xFFA2A2A2),
+                  theme.secondaryHeaderColor,
                   BlendMode.srcIn,
                 ),
               ),
@@ -76,8 +78,8 @@ class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
                 colors: [
-                  Color(0xFF111111),
-                  Color(0xFF313131),
+                  CoffeeTheme.darkBackgroundColor,
+                  CoffeeTheme.searchFieldFillColor,
                 ],
               ),
             ),
@@ -94,27 +96,20 @@ class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
                     children: [
                       Text(
                         "Location",
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xFFA2A2A2),
-                        ),
+                        style: theme.textTheme.bodySmall,
                       ),
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
                             "Warsaw, Poland",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFFD8D8D8),
-                            ),
+                            style: theme.textTheme.bodyMedium
+                                ?.copyWith(fontWeight: FontWeight.w600),
                           ),
                           SizedBox(width: 4),
                           Icon(
                             Icons.keyboard_arrow_down,
-                            color: Color(0xFFD8D8D8),
+                            color: theme.secondaryHeaderColor,
                             size: 16,
                           ),
                         ],
@@ -135,25 +130,15 @@ class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
                                 width: 20,
                                 child: Assets.coffeeApp.icons.search.svg(
                                   colorFilter: ColorFilter.mode(
-                                    Colors.white,
+                                    CoffeeTheme.secondaryColor,
                                     BlendMode.srcIn,
                                   ),
                                 ),
                               ),
                             ),
-                            filled: true,
-                            fillColor: Colors.grey[800],
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              borderSide: BorderSide.none,
-                            ),
-                            hintStyle: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xFFA2A2A2),
-                            ),
                           ),
-                          style: TextStyle(color: Colors.white),
+                          style: theme.textTheme.bodyMedium
+                              ?.copyWith(color: CoffeeTheme.secondaryColor),
                         ),
                       ),
                       SizedBox(width: 16),
@@ -161,7 +146,7 @@ class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
                         width: 52,
                         height: 52,
                         decoration: BoxDecoration(
-                          color: Color(0xFFC67C4E),
+                          color: theme.primaryColor,
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Center(
@@ -169,7 +154,7 @@ class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
                             height: 20,
                             width: 20,
                             colorFilter: ColorFilter.mode(
-                              Colors.white,
+                              CoffeeTheme.secondaryColor,
                               BlendMode.srcIn,
                             ),
                           ),
@@ -228,6 +213,7 @@ class PromoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -244,16 +230,13 @@ class PromoCard extends StatelessWidget {
           Container(
             padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
             decoration: BoxDecoration(
-              color: Color(0xFFED5151),
+              color: CoffeeTheme.promoColor,
               borderRadius: BorderRadius.circular(8),
             ),
             child: Text(
               "Promo",
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+              style: theme.textTheme.bodyMedium
+                  ?.copyWith(color: CoffeeTheme.secondaryColor),
             ),
           ),
           Column(
@@ -267,17 +250,10 @@ class PromoCard extends StatelessWidget {
                     child: Container(
                       width: 200,
                       height: 24,
-                      color: Colors.black,
+                      color: CoffeeTheme.darkBackgroundColor,
                     ),
                   ),
-                  Text(
-                    "Buy one get",
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
+                  Text("Buy one get", style: theme.textTheme.headlineLarge),
                 ],
               ),
               SizedBox(height: 4),
@@ -289,17 +265,10 @@ class PromoCard extends StatelessWidget {
                     child: Container(
                       width: 160,
                       height: 24,
-                      color: Colors.black,
+                      color: CoffeeTheme.darkBackgroundColor,
                     ),
                   ),
-                  Text(
-                    "one FREE",
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
+                  Text("one FREE", style: theme.textTheme.headlineLarge),
                 ],
               ),
             ],
@@ -347,14 +316,17 @@ class CategoryButton extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: isSelected ? Color(0xFFC67C4E) : Colors.white,
+        color:
+            isSelected ? CoffeeTheme.primaryColor : CoffeeTheme.secondaryColor,
         borderRadius: BorderRadius.circular(6),
       ),
       child: Text(
         text,
         style: TextStyle(
           fontSize: 14,
-          color: isSelected ? Colors.white : Color(0xFF313131),
+          color: isSelected
+              ? CoffeeTheme.secondaryColor
+              : CoffeeTheme.primaryTextColor,
           fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
         ),
       ),
@@ -423,8 +395,9 @@ class CoffeeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Card(
-      color: Colors.white,
+      color: CoffeeTheme.secondaryColor,
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: Column(
@@ -447,23 +420,16 @@ class CoffeeCard extends StatelessWidget {
                   right: 0,
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                    decoration: BoxDecoration(
-                      color: Color.fromRGBO(0, 0, 0, 0.2),
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(15),
-                        bottomLeft: Radius.circular(30),
-                      ),
-                    ),
+                    decoration: CoffeeTheme.ratingContainerDecoration,
                     child: Row(
                       children: [
-                        Icon(Icons.star, color: Color(0xFFFBBE21), size: 16),
+                        Icon(Icons.star,
+                            color: CoffeeTheme.ratingStarColor, size: 16),
                         SizedBox(width: 4),
                         Text(
                           coffee.rating.toString(),
-                          style: TextStyle(
+                          style: theme.textTheme.headlineLarge?.copyWith(
                             fontSize: 10,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
                           ),
                         ),
                       ],
@@ -480,19 +446,11 @@ class CoffeeCard extends StatelessWidget {
               children: [
                 Text(
                   coffee.name,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFF242424),
-                  ),
+                  style: theme.textTheme.headlineMedium,
                 ),
                 Text(
                   coffee.description,
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xFFA2A2A2),
-                  ),
+                  style: theme.textTheme.bodySmall,
                 ),
                 SizedBox(height: 8),
                 Row(
@@ -500,21 +458,20 @@ class CoffeeCard extends StatelessWidget {
                   children: [
                     Text(
                       '\$${coffee.price}',
-                      style: TextStyle(
+                      style: theme.textTheme.headlineMedium?.copyWith(
                         fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF242424),
                       ),
                     ),
                     Container(
                       width: 24,
                       height: 24,
                       decoration: BoxDecoration(
-                        color: Color(0xFFC67C4E),
+                        color: theme.primaryColor,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Center(
-                        child: Icon(Icons.add, color: Colors.white, size: 16),
+                        child: Icon(Icons.add,
+                            color: CoffeeTheme.secondaryColor, size: 16),
                       ),
                     ),
                   ],
