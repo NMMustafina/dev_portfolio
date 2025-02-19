@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:dev_portfolio/fitness_app/theme/fitness_theme.dart';
 import 'package:dev_portfolio/router/router.dart';
 import 'package:flutter/material.dart';
 
@@ -8,20 +9,22 @@ class FitnessWelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF00B6F0),
-      appBar: AppBar(title: Text("Fitness Welcome Screen")),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Fitness Welcome Screen"),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () => context.router.push(const FitnessHomeRoute()),
-              child: Text("Go to Home Page"),
-            ),
-          ],
+    return Theme(
+      data: FitnessTheme.lightTheme,
+      child: Scaffold(
+        appBar: AppBar(title: Text("Fitness Welcome Screen")),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Fitness Welcome Screen"),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () => context.router.push(const FitnessHomeRoute()),
+                child: Text("Go to Home Page"),
+              ),
+            ],
+          ),
         ),
       ),
     );

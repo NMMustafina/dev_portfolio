@@ -28,6 +28,18 @@ class $AssetsCoffeeAppIconsGen {
   /// File path: assets/coffee_app/icons/bag.svg
   SvgGenImage get bag => const SvgGenImage('assets/coffee_app/icons/bag.svg');
 
+  /// File path: assets/coffee_app/icons/calling.svg
+  SvgGenImage get calling =>
+      const SvgGenImage('assets/coffee_app/icons/calling.svg');
+
+  /// File path: assets/coffee_app/icons/discount.svg
+  SvgGenImage get discount =>
+      const SvgGenImage('assets/coffee_app/icons/discount.svg');
+
+  /// File path: assets/coffee_app/icons/filter.svg
+  SvgGenImage get filter =>
+      const SvgGenImage('assets/coffee_app/icons/filter.svg');
+
   /// File path: assets/coffee_app/icons/heart.svg
   SvgGenImage get heart =>
       const SvgGenImage('assets/coffee_app/icons/heart.svg');
@@ -46,14 +58,21 @@ class $AssetsCoffeeAppIconsGen {
   SvgGenImage get search =>
       const SvgGenImage('assets/coffee_app/icons/search.svg');
 
+  /// File path: assets/coffee_app/icons/star.svg
+  SvgGenImage get star => const SvgGenImage('assets/coffee_app/icons/star.svg');
+
   /// List of all assets
   List<SvgGenImage> get values => [
     bag,
+    calling,
+    discount,
+    filter,
     heart,
     home,
     more,
     notification,
     search,
+    star,
   ];
 }
 
@@ -80,6 +99,10 @@ class $AssetsCoffeeAppImagesGen {
   AssetGenImage get coffee5 =>
       const AssetGenImage('assets/coffee_app/images/coffee_5.png');
 
+  /// File path: assets/coffee_app/images/promo_banner.png
+  AssetGenImage get promoBanner =>
+      const AssetGenImage('assets/coffee_app/images/promo_banner.png');
+
   /// File path: assets/coffee_app/images/welcome_bg.png
   AssetGenImage get welcomeBg =>
       const AssetGenImage('assets/coffee_app/images/welcome_bg.png');
@@ -91,6 +114,7 @@ class $AssetsCoffeeAppImagesGen {
     coffee3,
     coffee4,
     coffee5,
+    promoBanner,
     welcomeBg,
   ];
 }

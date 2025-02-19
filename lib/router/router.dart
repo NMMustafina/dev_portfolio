@@ -10,9 +10,9 @@ class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
         AutoRoute(page: NavigatorRoute.page, path: '/'),
-        AutoRoute(page: CoffeeHomeRoute.page, path: '/coffee_app'),
-        AutoRoute(page: CoffeeWelcomeRoute.page, path: '/coffee_app/welcome'),
-        AutoRoute(page: FitnessHomeRoute.page, path: '/fitness_app'),
-        AutoRoute(page: FitnessWelcomeRoute.page, path: '/fitness_app/welcome'),
+        AutoRoute(page: CoffeeWelcomeRoute.page, path: '/coffee_app'),
+        AutoRoute(page: CoffeeHomeRoute.page, path: '/coffee_app/home'),
+        AutoRoute(page: FitnessWelcomeRoute.page, path: '/fitness_app'),
+        AutoRoute(page: FitnessHomeRoute.page, path: '/fitness_app/home'),
       ];
 }

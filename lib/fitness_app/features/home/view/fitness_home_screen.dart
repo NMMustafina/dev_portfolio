@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:dev_portfolio/fitness_app/theme/fitness_theme.dart';
 import 'package:dev_portfolio/router/router.dart';
 import 'package:flutter/material.dart';
 
@@ -13,25 +14,27 @@ class FitnessHomeScreen extends StatefulWidget {
 class _FitnessHomeScreenState extends State<FitnessHomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF00B6F0),
-      appBar: AppBar(title: Text("Fitness App Home")),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Fitness App Home Page!"),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                context.router.pushAndPopUntil(
-                  const NavigatorRoute(),
-                  predicate: (route) => false,
-                );
-              },
-              child: Text("Go to Main Screen"),
-            ),
-          ],
+    return Theme(
+      data: FitnessTheme.lightTheme,
+      child: Scaffold(
+        appBar: AppBar(title: Text("Fitness App Home")),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Fitness App Home Page!"),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  context.router.pushAndPopUntil(
+                    const NavigatorRoute(),
+                    predicate: (route) => false,
+                  );
+                },
+                child: Text("Go to Main Screen"),
+              ),
+            ],
+          ),
         ),
       ),
     );
