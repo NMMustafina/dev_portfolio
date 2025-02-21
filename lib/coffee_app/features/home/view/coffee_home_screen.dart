@@ -1,9 +1,8 @@
-import 'package:auto_route/auto_route.dart';
+import 'package:dev_portfolio/coffee_app/features/features.dart';
 import 'package:dev_portfolio/coffee_app/theme/coffee_theme.dart';
 import 'package:dev_portfolio/src/src.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage()
 class CoffeeHomeScreen extends StatefulWidget {
   const CoffeeHomeScreen({super.key});
 
@@ -25,50 +24,6 @@ class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
     final theme = Theme.of(context);
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-              icon: Assets.coffeeApp.icons.home.svg(
-                height: 24,
-                width: 24,
-                colorFilter: ColorFilter.mode(
-                  theme.primaryColor,
-                  BlendMode.srcIn,
-                ),
-              ),
-              label: ''),
-          BottomNavigationBarItem(
-              icon: Assets.coffeeApp.icons.heart.svg(
-                height: 24,
-                width: 24,
-                colorFilter: ColorFilter.mode(
-                  theme.secondaryHeaderColor,
-                  BlendMode.srcIn,
-                ),
-              ),
-              label: ''),
-          BottomNavigationBarItem(
-              icon: Assets.coffeeApp.icons.bag.svg(
-                height: 24,
-                width: 24,
-                colorFilter: ColorFilter.mode(
-                  theme.secondaryHeaderColor,
-                  BlendMode.srcIn,
-                ),
-              ),
-              label: ''),
-          BottomNavigationBarItem(
-              icon: Assets.coffeeApp.icons.notification.svg(
-                height: 24,
-                width: 24,
-                colorFilter: ColorFilter.mode(
-                  theme.secondaryHeaderColor,
-                  BlendMode.srcIn,
-                ),
-              ),
-              label: ''),
-        ],
-      ),
       body: Stack(
         children: [
           Container(
@@ -204,6 +159,50 @@ class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
           ),
         ],
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+              icon: Assets.coffeeApp.icons.home.svg(
+                height: 24,
+                width: 24,
+                colorFilter: ColorFilter.mode(
+                  theme.primaryColor,
+                  BlendMode.srcIn,
+                ),
+              ),
+              label: ''),
+          BottomNavigationBarItem(
+              icon: Assets.coffeeApp.icons.heart.svg(
+                height: 24,
+                width: 24,
+                colorFilter: ColorFilter.mode(
+                  theme.secondaryHeaderColor,
+                  BlendMode.srcIn,
+                ),
+              ),
+              label: ''),
+          BottomNavigationBarItem(
+              icon: Assets.coffeeApp.icons.bag.svg(
+                height: 24,
+                width: 24,
+                colorFilter: ColorFilter.mode(
+                  theme.secondaryHeaderColor,
+                  BlendMode.srcIn,
+                ),
+              ),
+              label: ''),
+          BottomNavigationBarItem(
+              icon: Assets.coffeeApp.icons.notification.svg(
+                height: 24,
+                width: 24,
+                colorFilter: ColorFilter.mode(
+                  theme.secondaryHeaderColor,
+                  BlendMode.srcIn,
+                ),
+              ),
+              label: ''),
+        ],
+      ),
     );
   }
 }
@@ -290,15 +289,13 @@ class CategoryTabs extends StatelessWidget {
         children: [
           CategoryButton("All Coffee", isSelected: true),
           SizedBox(width: 12),
-          CategoryButton("Macchiato"),
-          SizedBox(width: 12),
-          CategoryButton("Latte"),
+          CategoryButton("Cappuccino"),
           SizedBox(width: 12),
           CategoryButton("Americano"),
           SizedBox(width: 12),
           CategoryButton("Espresso"),
           SizedBox(width: 12),
-          CategoryButton("Cappuccino"),
+          CategoryButton("Latte"),
         ],
       ),
     );
@@ -340,6 +337,10 @@ class CoffeeData {
   final String description;
   final double price;
   final double rating;
+  final int votes;
+  final String category;
+  final String temperature;
+  final List<String> sizes;
 
   CoffeeData({
     required this.imagePath,
@@ -347,6 +348,10 @@ class CoffeeData {
     required this.description,
     required this.price,
     required this.rating,
+    required this.votes,
+    required this.category,
+    required this.temperature,
+    this.sizes = const ['S', 'M', 'L'],
   });
 }
 
@@ -359,31 +364,47 @@ class CoffeeMockService {
   static final List<CoffeeData> _mockCoffees = [
     CoffeeData(
       imagePath: Assets.coffeeApp.images.coffee1.provider(),
-      name: 'Caffe Mocha',
-      description: 'Deep Foam',
+      name: 'Cloudy Foam',
+      description:
+          'Americano is a classic coffee drink made by diluting espresso with hot water. This preparation method gives Americano a milder taste compared to pure espresso while preserving its characteristic aroma and slight bitterness.\n\nTraditionally, an Americano is made by adding 90–150 ml of hot water to 30 ml of espresso, making it similar in strength to filter coffee but with a richer flavor. This drink is popular among those who enjoy a smooth yet invigorating coffee without milk.\n\nIt is believed that Americano originated during World War II when American soldiers in Europe diluted strong Italian espresso with water to resemble the filter coffee they were accustomed to.',
       price: 4.53,
       rating: 4.7,
+      votes: 230,
+      category: 'Americano',
+      temperature: 'Ice/Hot',
     ),
     CoffeeData(
       imagePath: Assets.coffeeApp.images.coffee2.provider(),
-      name: 'Flat White',
-      description: 'Espresso',
+      name: 'Midnight Brew',
+      description:
+          'Espresso is a strong and rich coffee made by forcing hot water under high pressure through finely ground coffee beans. It has a dense texture, intense flavor, and a thick crema.\n\nThis drink serves as the base for many popular coffee variations, such as cappuccino, latte, and macchiato. A true espresso should have a rich aroma, a balanced bitterness, and a slight acidity.\n\nItalians consider it an art and drink it in small sips, savoring every drop. A classic espresso is served in a small cup (demitasse) and typically consists of 30 ml (1 ounce) of coffee. A double espresso, or “doppio,” contains 60 ml (2 ounces). There are also variations like ristretto, which is a more concentrated 15-20 ml shot, and lungo, which is a longer 50-60 ml shot with more water.',
       price: 3.53,
       rating: 4.5,
+      votes: 180,
+      category: 'Espresso',
+      temperature: 'Hot',
     ),
     CoffeeData(
       imagePath: Assets.coffeeApp.images.coffee3.provider(),
-      name: 'Latte',
-      description: 'Milk Foam',
+      name: 'Crema Latte',
+      description:
+          'Latte is a popular coffee drink made with espresso, a large amount of milk, and a light milk foam. This gives latte a smooth, creamy taste with a delicate texture, making it a perfect choice for those who prefer a milder coffee.\n\nA classic latte consists of 30–60 ml of espresso and about 200–250 ml of hot milk, topped with a small layer of foam. The drink is often served in a tall glass, and in coffee shops, baristas create beautiful designs on its surface – known as latte art.\n\nLatte is especially popular among those who enjoy sweet and flavored drinks, as its taste pairs well with syrups like vanilla, caramel, or hazelnut.',
       price: 3.99,
       rating: 4.2,
+      votes: 200,
+      category: 'Latte',
+      temperature: 'Ice/Hot',
     ),
     CoffeeData(
       imagePath: Assets.coffeeApp.images.coffee4.provider(),
-      name: 'Cappuccino',
-      description: 'Creamy',
+      name: 'Caramel Dream',
+      description:
+          'Cappuccino is a classic Italian coffee drink made with espresso, hot milk, and airy milk foam. It has a rich flavor and a velvety texture, creating the perfect balance between the strength of coffee and the smoothness of milk.\n\nTraditionally, cappuccino is prepared in a 1:1:1 ratio – one part espresso (30 ml), one part milk, and one part thick milk foam. The drink is served in a cup of 150–180 ml, and it can be topped with cocoa or cinnamon for extra aroma.\n\nCappuccino is popular worldwide and is often enjoyed in the morning, as the combination of caffeine and milk makes it both invigorating and smooth, offering a pleasant and balanced taste.',
       price: 4.20,
       rating: 4.8,
+      votes: 250,
+      category: 'Cappuccino',
+      temperature: 'Hot',
     ),
   ];
 }
@@ -404,39 +425,56 @@ class CoffeeCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: Stack(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: coffee.imagePath,
-                      fit: BoxFit.cover,
-                    ),
-                    borderRadius: BorderRadius.circular(15),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CoffeeDetailScreen(coffee: coffee),
                   ),
-                ),
-                Positioned(
-                  top: 0,
-                  right: 0,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                    decoration: CoffeeTheme.ratingContainerDecoration,
-                    child: Row(
-                      children: [
-                        Icon(Icons.star,
-                            color: CoffeeTheme.ratingStarColor, size: 16),
-                        SizedBox(width: 4),
-                        Text(
-                          coffee.rating.toString(),
-                          style: theme.textTheme.headlineLarge?.copyWith(
-                            fontSize: 10,
+                );
+              },
+              child: Stack(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: coffee.imagePath,
+                        fit: BoxFit.cover,
+                      ),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                      decoration: CoffeeTheme.ratingContainerDecoration,
+                      child: Row(
+                        children: [
+                          Assets.coffeeApp.icons.star.svg(
+                            height: 14,
+                            width: 14,
+                            colorFilter: ColorFilter.mode(
+                              CoffeeTheme.ratingStarColor,
+                              BlendMode.srcIn,
+                            ),
                           ),
-                        ),
-                      ],
+                          SizedBox(width: 4),
+                          Text(
+                            coffee.rating.toString(),
+                            style: theme.textTheme.headlineLarge?.copyWith(
+                              fontSize: 10,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Padding(
@@ -446,10 +484,10 @@ class CoffeeCard extends StatelessWidget {
               children: [
                 Text(
                   coffee.name,
-                  style: theme.textTheme.headlineMedium,
+                  style: theme.textTheme.headlineSmall,
                 ),
                 Text(
-                  coffee.description,
+                  coffee.category,
                   style: theme.textTheme.bodySmall,
                 ),
                 SizedBox(height: 8),
@@ -458,7 +496,7 @@ class CoffeeCard extends StatelessWidget {
                   children: [
                     Text(
                       '\$${coffee.price}',
-                      style: theme.textTheme.headlineMedium?.copyWith(
+                      style: theme.textTheme.headlineSmall?.copyWith(
                         fontSize: 18,
                       ),
                     ),

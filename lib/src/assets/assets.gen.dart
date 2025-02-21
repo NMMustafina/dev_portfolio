@@ -28,6 +28,14 @@ class $AssetsCoffeeAppIconsGen {
   /// File path: assets/coffee_app/icons/bag.svg
   SvgGenImage get bag => const SvgGenImage('assets/coffee_app/icons/bag.svg');
 
+  /// File path: assets/coffee_app/icons/bean.png
+  AssetGenImage get bean =>
+      const AssetGenImage('assets/coffee_app/icons/bean.png');
+
+  /// File path: assets/coffee_app/icons/bike.png
+  AssetGenImage get bike =>
+      const AssetGenImage('assets/coffee_app/icons/bike.png');
+
   /// File path: assets/coffee_app/icons/calling.svg
   SvgGenImage get calling =>
       const SvgGenImage('assets/coffee_app/icons/calling.svg');
@@ -47,6 +55,10 @@ class $AssetsCoffeeAppIconsGen {
   /// File path: assets/coffee_app/icons/home.svg
   SvgGenImage get home => const SvgGenImage('assets/coffee_app/icons/home.svg');
 
+  /// File path: assets/coffee_app/icons/milk.png
+  AssetGenImage get milk =>
+      const AssetGenImage('assets/coffee_app/icons/milk.png');
+
   /// File path: assets/coffee_app/icons/more.svg
   SvgGenImage get more => const SvgGenImage('assets/coffee_app/icons/more.svg');
 
@@ -58,17 +70,24 @@ class $AssetsCoffeeAppIconsGen {
   SvgGenImage get search =>
       const SvgGenImage('assets/coffee_app/icons/search.svg');
 
+  /// File path: assets/coffee_app/icons/star.svg
+  SvgGenImage get star => const SvgGenImage('assets/coffee_app/icons/star.svg');
+
   /// List of all assets
-  List<SvgGenImage> get values => [
+  List<dynamic> get values => [
     bag,
+    bean,
+    bike,
     calling,
     discount,
     filter,
     heart,
     home,
+    milk,
     more,
     notification,
     search,
+    star,
   ];
 }
 
@@ -91,10 +110,6 @@ class $AssetsCoffeeAppImagesGen {
   AssetGenImage get coffee4 =>
       const AssetGenImage('assets/coffee_app/images/coffee_4.png');
 
-  /// File path: assets/coffee_app/images/coffee_5.png
-  AssetGenImage get coffee5 =>
-      const AssetGenImage('assets/coffee_app/images/coffee_5.png');
-
   /// File path: assets/coffee_app/images/promo_banner.png
   AssetGenImage get promoBanner =>
       const AssetGenImage('assets/coffee_app/images/promo_banner.png');
@@ -109,7 +124,6 @@ class $AssetsCoffeeAppImagesGen {
     coffee2,
     coffee3,
     coffee4,
-    coffee5,
     promoBanner,
     welcomeBg,
   ];

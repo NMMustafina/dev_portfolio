@@ -10,7 +10,7 @@ class CoffeeTheme {
   static const Color primaryTextColor = Color(0xFF242424);
   static const Color secondaryTextColor = Color(0xFFA2A2A2);
 
-  static const Color backgroundColor = Color(0xFFF9F9F9);
+  static const Color backgroundColor = Color(0xFFF9F9F2);
   static const Color darkBackgroundColor = Color(0xFF000000);
 
   static const Color searchFieldFillColor = Color(0xFF424242);
@@ -37,6 +37,13 @@ class CoffeeTheme {
           height: 1.5,
         ),
         headlineMedium: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+          fontFamily: fontFamily,
+          color: primaryTextColor,
+          height: 1.5,
+        ),
+        headlineSmall: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w600,
           fontFamily: fontFamily,
@@ -66,9 +73,9 @@ class CoffeeTheme {
           ),
           backgroundColor: primaryColor,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.0),
+            borderRadius: BorderRadius.circular(16.0),
           ),
-          padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
+          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
         ),
       ),
       textSelectionTheme: TextSelectionThemeData(
