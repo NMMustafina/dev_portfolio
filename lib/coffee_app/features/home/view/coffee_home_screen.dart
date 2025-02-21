@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:dev_portfolio/coffee_app/features/features.dart';
 import 'package:dev_portfolio/coffee_app/theme/coffee_theme.dart';
 import 'package:dev_portfolio/src/src.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:http/http.dart' as http;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,8 +19,8 @@ class CoffeeHomeScreen extends StatefulWidget {
 
 class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
   late Future<List<CoffeeData>> _coffeeFuture;
-  String _selectedCategory = "All Coffee";
-  String _currentLocation = "Loading...";
+  String _selectedCategory = 'All Coffee';
+  String _currentLocation = 'Loading...';
 
   @override
   void initState() {
@@ -28,7 +31,7 @@ class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
 
   Future<void> _loadLocation() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? savedLocation = prefs.getString("selected_location");
+    String? savedLocation = prefs.getString('selected_location');
 
     if (savedLocation != null) {
       setState(() {
@@ -46,7 +49,7 @@ class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       setState(() {
-        _currentLocation = "Location disabled";
+        _currentLocation = 'Location disabled';
       });
       return;
     }
@@ -56,7 +59,7 @@ class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         setState(() {
-          _currentLocation = "Permission denied";
+          _currentLocation = 'Permission denied';
         });
         return;
       }
@@ -64,7 +67,7 @@ class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
 
     if (permission == LocationPermission.deniedForever) {
       setState(() {
-        _currentLocation = "Permission denied forever";
+        _currentLocation = 'Permission denied forever';
       });
       return;
     }
@@ -73,7 +76,7 @@ class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
       var status = await Permission.location.request();
 
       if (status.isDenied) {
-        print("Location permission denied");
+        print('Location permission denied');
       }
 
       if (status.isPermanentlyDenied) {
@@ -94,57 +97,79 @@ class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
 
       if (placemarks.isNotEmpty) {
         Placemark place = placemarks.first;
-        String city = place.locality ?? "Unknown City";
-        String country = place.country ?? "Unknown Country";
+        String city = place.locality ?? 'Unknown City';
+        String country = place.country ?? 'Unknown Country';
 
         setState(() {
-          _currentLocation = "$city, $country";
+          _currentLocation = '$city, $country';
         });
 
         SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString("selected_location", _currentLocation);
+        await prefs.setString('selected_location', _currentLocation);
       }
     } catch (e) {
-      print("Error in geocoding: $e");
+      print('Error in geocoding: $e');
       setState(() {
-        _currentLocation = "Location not found";
+        _currentLocation = 'Location not found';
       });
     }
   }
 
-  Future<void> _showLocationDialog() async {
-    List<String> cities = [
-      "New York",
-      "Los Angeles",
-      "London",
-      "Warsaw",
-      "Tokyo"
-    ];
-    String? selectedCity = await showDialog<String>(
+  Future<List<String>> _fetchCountries() async {
+    final response =
+        await http.get(Uri.parse('https://restcountries.com/v3.1/all'));
+
+    if (response.statusCode == 200) {
+      List<dynamic> data = jsonDecode(response.body);
+      List<String> countries =
+          data.map((country) => country['name']['common'].toString()).toList();
+      countries.sort();
+      return countries;
+    } else {
+      throw Exception('Failed to load countries');
+    }
+  }
+
+  Future<void> _showCountryDialog() async {
+    List<String> countries = await _fetchCountries();
+
+    if (!mounted) {
+      return;
+    }
+
+    String? selectedCountry = await showDialog<String>(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text("Select Location"),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: cities
-                .map((city) => ListTile(
-                      title: Text(city),
-                      onTap: () {
-                        Navigator.pop(context, city);
-                      },
-                    ))
-                .toList(),
+          title: Text('Select your country'),
+          content: SizedBox(
+            width: double.maxFinite,
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: countries.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(countries[index]),
+                  onTap: () {
+                    Navigator.pop(context, countries[index]);
+                  },
+                );
+              },
+            ),
           ),
         );
       },
     );
 
-    if (selectedCity != null) {
+    if (!mounted) return;
+
+    if (selectedCountry != null) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString("selected_location", selectedCity);
+      await prefs.setString('selected_location', selectedCountry);
+
+      if (!mounted) return;
       setState(() {
-        _currentLocation = selectedCity;
+        _currentLocation = selectedCountry;
       });
     }
   }
@@ -176,9 +201,9 @@ class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 10),
-                  Text("Location", style: theme.textTheme.bodySmall),
+                  Text('Location', style: theme.textTheme.bodySmall),
                   GestureDetector(
-                    onTap: _showLocationDialog,
+                    onTap: _showCountryDialog,
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -199,7 +224,7 @@ class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
                       Expanded(
                         child: TextField(
                           decoration: InputDecoration(
-                            hintText: "Search coffee",
+                            hintText: 'Search coffee',
                             prefixIcon: Padding(
                               padding: EdgeInsets.all(12),
                               child: SizedBox(
@@ -267,7 +292,7 @@ class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
                         }
                         final coffeeList = snapshot.data!
                             .where((coffee) =>
-                                _selectedCategory == "All Coffee" ||
+                                _selectedCategory == 'All Coffee' ||
                                 coffee.category == _selectedCategory)
                             .toList();
                         return GridView.builder(
@@ -366,7 +391,7 @@ class PromoCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
             ),
             child: Text(
-              "Promo",
+              'Promo',
               style: theme.textTheme.bodyMedium
                   ?.copyWith(color: CoffeeTheme.secondaryColor),
             ),
@@ -385,7 +410,7 @@ class PromoCard extends StatelessWidget {
                       color: CoffeeTheme.darkBackgroundColor,
                     ),
                   ),
-                  Text("Buy one get", style: theme.textTheme.headlineLarge),
+                  Text('Buy one get', style: theme.textTheme.headlineLarge),
                 ],
               ),
               SizedBox(height: 4),
@@ -400,7 +425,7 @@ class PromoCard extends StatelessWidget {
                       color: CoffeeTheme.darkBackgroundColor,
                     ),
                   ),
-                  Text("one FREE", style: theme.textTheme.headlineLarge),
+                  Text('one FREE', style: theme.textTheme.headlineLarge),
                 ],
               ),
             ],
@@ -424,11 +449,11 @@ class CategoryTabs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final categories = [
-      "All Coffee",
-      "Cappuccino",
-      "Americano",
-      "Espresso",
-      "Latte"
+      'All Coffee',
+      'Cappuccino',
+      'Americano',
+      'Espresso',
+      'Latte'
     ];
 
     return SingleChildScrollView(
