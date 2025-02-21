@@ -2,6 +2,10 @@ import 'package:dev_portfolio/coffee_app/features/features.dart';
 import 'package:dev_portfolio/coffee_app/theme/coffee_theme.dart';
 import 'package:dev_portfolio/src/src.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CoffeeHomeScreen extends StatefulWidget {
   const CoffeeHomeScreen({super.key});
@@ -13,11 +17,136 @@ class CoffeeHomeScreen extends StatefulWidget {
 class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
   late Future<List<CoffeeData>> _coffeeFuture;
   String _selectedCategory = "All Coffee";
+  String _currentLocation = "Loading...";
 
   @override
   void initState() {
     super.initState();
     _coffeeFuture = CoffeeMockService.fetchCoffees();
+    _loadLocation();
+  }
+
+  Future<void> _loadLocation() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? savedLocation = prefs.getString("selected_location");
+
+    if (savedLocation != null) {
+      setState(() {
+        _currentLocation = savedLocation;
+      });
+    } else {
+      _determineLocation();
+    }
+  }
+
+  Future<void> _determineLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      setState(() {
+        _currentLocation = "Location disabled";
+      });
+      return;
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        setState(() {
+          _currentLocation = "Permission denied";
+        });
+        return;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      setState(() {
+        _currentLocation = "Permission denied forever";
+      });
+      return;
+    }
+
+    Future<void> requestPermission() async {
+      var status = await Permission.location.request();
+
+      if (status.isDenied) {
+        print("Location permission denied");
+      }
+
+      if (status.isPermanentlyDenied) {
+        await openAppSettings();
+      }
+    }
+
+    await requestPermission();
+
+    Position position = await Geolocator.getCurrentPosition();
+    _getAddressFromCoordinates(position);
+  }
+
+  Future<void> _getAddressFromCoordinates(Position position) async {
+    try {
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(position.latitude, position.longitude);
+
+      if (placemarks.isNotEmpty) {
+        Placemark place = placemarks.first;
+        String city = place.locality ?? "Unknown City";
+        String country = place.country ?? "Unknown Country";
+
+        setState(() {
+          _currentLocation = "$city, $country";
+        });
+
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString("selected_location", _currentLocation);
+      }
+    } catch (e) {
+      print("Error in geocoding: $e");
+      setState(() {
+        _currentLocation = "Location not found";
+      });
+    }
+  }
+
+  Future<void> _showLocationDialog() async {
+    List<String> cities = [
+      "New York",
+      "Los Angeles",
+      "London",
+      "Warsaw",
+      "Tokyo"
+    ];
+    String? selectedCity = await showDialog<String>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Select Location"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: cities
+                .map((city) => ListTile(
+                      title: Text(city),
+                      onTap: () {
+                        Navigator.pop(context, city);
+                      },
+                    ))
+                .toList(),
+          ),
+        );
+      },
+    );
+
+    if (selectedCity != null) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString("selected_location", selectedCity);
+      setState(() {
+        _currentLocation = selectedCity;
+      });
+    }
   }
 
   @override
@@ -48,16 +177,21 @@ class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
                 children: [
                   SizedBox(height: 10),
                   Text("Location", style: theme.textTheme.bodySmall),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text("Warsaw, Poland",
+                  GestureDetector(
+                    onTap: _showLocationDialog,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          _currentLocation,
                           style: theme.textTheme.bodyMedium
-                              ?.copyWith(fontWeight: FontWeight.w600)),
-                      SizedBox(width: 4),
-                      Icon(Icons.keyboard_arrow_down,
-                          color: theme.secondaryHeaderColor, size: 16),
-                    ],
+                              ?.copyWith(fontWeight: FontWeight.w600),
+                        ),
+                        SizedBox(width: 4),
+                        Icon(Icons.keyboard_arrow_down,
+                            color: theme.secondaryHeaderColor, size: 16),
+                      ],
+                    ),
                   ),
                   SizedBox(height: 24),
                   Row(
