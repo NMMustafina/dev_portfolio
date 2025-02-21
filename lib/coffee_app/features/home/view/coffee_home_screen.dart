@@ -21,6 +21,8 @@ class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
   late Future<List<CoffeeData>> _coffeeFuture;
   String _selectedCategory = 'All Coffee';
   String _currentLocation = 'Loading...';
+  String _searchQuery = '';
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
@@ -223,6 +225,7 @@ class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
                     children: [
                       Expanded(
                         child: TextField(
+                          controller: _searchController,
                           decoration: InputDecoration(
                             hintText: 'Search coffee',
                             prefixIcon: Padding(
@@ -241,6 +244,11 @@ class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
                           ),
                           style: theme.textTheme.bodyMedium
                               ?.copyWith(color: CoffeeTheme.secondaryColor),
+                          onChanged: (query) {
+                            setState(() {
+                              _searchQuery = query;
+                            });
+                          },
                         ),
                       ),
                       SizedBox(width: 16),
@@ -292,22 +300,29 @@ class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
                         }
                         final coffeeList = snapshot.data!
                             .where((coffee) =>
-                                _selectedCategory == 'All Coffee' ||
-                                coffee.category == _selectedCategory)
+                                (_selectedCategory == 'All Coffee' ||
+                                    coffee.category == _selectedCategory) &&
+                                (_searchQuery.isEmpty ||
+                                    coffee.name
+                                        .toLowerCase()
+                                        .contains(_searchQuery.toLowerCase())))
                             .toList();
-                        return GridView.builder(
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10,
-                            childAspectRatio: 0.7,
-                          ),
-                          itemCount: coffeeList.length,
-                          itemBuilder: (context, index) {
-                            return CoffeeCard(coffee: coffeeList[index]);
-                          },
-                        );
+
+                        return coffeeList.isEmpty
+                            ? Center(child: Text('No matching coffee found'))
+                            : GridView.builder(
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: 10,
+                                  mainAxisSpacing: 10,
+                                  childAspectRatio: 0.7,
+                                ),
+                                itemCount: coffeeList.length,
+                                itemBuilder: (context, index) {
+                                  return CoffeeCard(coffee: coffeeList[index]);
+                                },
+                              );
                       },
                     ),
                   ),
