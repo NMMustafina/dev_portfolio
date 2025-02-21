@@ -12,6 +12,7 @@ class CoffeeHomeScreen extends StatefulWidget {
 
 class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
   late Future<List<CoffeeData>> _coffeeFuture;
+  String _selectedCategory = "All Coffee";
 
   @override
   void initState() {
@@ -46,29 +47,16 @@ class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Text("Location", style: theme.textTheme.bodySmall),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
-                        "Location",
-                        style: theme.textTheme.bodySmall,
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            "Warsaw, Poland",
-                            style: theme.textTheme.bodyMedium
-                                ?.copyWith(fontWeight: FontWeight.w600),
-                          ),
-                          SizedBox(width: 4),
-                          Icon(
-                            Icons.keyboard_arrow_down,
-                            color: theme.secondaryHeaderColor,
-                            size: 16,
-                          ),
-                        ],
-                      ),
+                      Text("Warsaw, Poland",
+                          style: theme.textTheme.bodyMedium
+                              ?.copyWith(fontWeight: FontWeight.w600)),
+                      SizedBox(width: 4),
+                      Icon(Icons.keyboard_arrow_down,
+                          color: theme.secondaryHeaderColor, size: 16),
                     ],
                   ),
                   SizedBox(height: 24),
@@ -120,7 +108,14 @@ class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
                   SizedBox(height: 24),
                   PromoCard(),
                   SizedBox(height: 16),
-                  CategoryTabs(),
+                  CategoryTabs(
+                    selectedCategory: _selectedCategory,
+                    onCategorySelected: (String category) {
+                      setState(() {
+                        _selectedCategory = category;
+                      });
+                    },
+                  ),
                   SizedBox(height: 16),
                   Expanded(
                     child: FutureBuilder<List<CoffeeData>>(
@@ -136,7 +131,11 @@ class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
                             snapshot.data!.isEmpty) {
                           return Center(child: Text('No coffee found'));
                         }
-                        final coffeeList = snapshot.data!;
+                        final coffeeList = snapshot.data!
+                            .where((coffee) =>
+                                _selectedCategory == "All Coffee" ||
+                                coffee.category == _selectedCategory)
+                            .toList();
                         return GridView.builder(
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
@@ -279,24 +278,38 @@ class PromoCard extends StatelessWidget {
 }
 
 class CategoryTabs extends StatelessWidget {
-  const CategoryTabs({super.key});
+  final String selectedCategory;
+  final Function(String) onCategorySelected;
+
+  const CategoryTabs({
+    super.key,
+    required this.selectedCategory,
+    required this.onCategorySelected,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final categories = [
+      "All Coffee",
+      "Cappuccino",
+      "Americano",
+      "Espresso",
+      "Latte"
+    ];
+
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
-        children: [
-          CategoryButton("All Coffee", isSelected: true),
-          SizedBox(width: 12),
-          CategoryButton("Cappuccino"),
-          SizedBox(width: 12),
-          CategoryButton("Americano"),
-          SizedBox(width: 12),
-          CategoryButton("Espresso"),
-          SizedBox(width: 12),
-          CategoryButton("Latte"),
-        ],
+        children: categories
+            .map((category) => Padding(
+                  padding: EdgeInsets.only(right: 12),
+                  child: GestureDetector(
+                    onTap: () => onCategorySelected(category),
+                    child: CategoryButton(category,
+                        isSelected: category == selectedCategory),
+                  ),
+                ))
+            .toList(),
       ),
     );
   }
