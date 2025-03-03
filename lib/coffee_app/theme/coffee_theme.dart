@@ -13,7 +13,7 @@ class CoffeeTheme {
   static const Color backgroundColor = Color(0xFFF9F9F2);
   static const Color darkBackgroundColor = Color(0xFF000000);
 
-  static const Color searchFieldFillColor = Color(0xFF424242);
+  static const Color searchFieldColor = Color(0xFF424242);
   static const Color promoColor = Color(0xFFED5151);
   static const Color ratingStarColor = Color(0xFFFBBE21);
   static const Color navigationInactiveColor = Color(0xFFA2A2A2);
@@ -83,7 +83,7 @@ class CoffeeTheme {
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: searchFieldFillColor,
+        fillColor: searchFieldColor,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide.none,

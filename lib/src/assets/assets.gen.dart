@@ -73,6 +73,10 @@ class $AssetsCoffeeAppIconsGen {
   /// File path: assets/coffee_app/icons/star.svg
   SvgGenImage get star => const SvgGenImage('assets/coffee_app/icons/star.svg');
 
+  /// File path: assets/coffee_app/icons/wallet.svg
+  SvgGenImage get wallet =>
+      const SvgGenImage('assets/coffee_app/icons/wallet.svg');
+
   /// List of all assets
   List<dynamic> get values => [
     bag,
@@ -88,6 +92,7 @@ class $AssetsCoffeeAppIconsGen {
     notification,
     search,
     star,
+    wallet,
   ];
 }
 

@@ -117,7 +117,7 @@ class _CoffeeDetailScreenState extends State<CoffeeDetailScreen> {
               trimExpandedText: ' Show less',
               moreStyle: TextStyle(
                   fontSize: 14,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                   color: theme.primaryColor),
             ),
             SizedBox(height: 16),
@@ -160,7 +160,7 @@ class _CoffeeDetailScreenState extends State<CoffeeDetailScreen> {
                 ),
                 SizedBox(height: 4),
                 Text(
-                  '\$${widget.coffee.price}',
+                  '\$${widget.coffee.price.toStringAsFixed(2)}',
                   style: theme.textTheme.headlineSmall?.copyWith(
                     fontSize: 18,
                     color: theme.primaryColor,
@@ -171,8 +171,14 @@ class _CoffeeDetailScreenState extends State<CoffeeDetailScreen> {
             SizedBox(width: 34),
             Expanded(
               child: ElevatedButton(
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        CoffeeOrderScreen(coffee: widget.coffee),
+                  ),
+                ),
                 style: theme.elevatedButtonTheme.style,
-                onPressed: () {},
                 child: Text(
                   'Buy Now',
                 ),
@@ -216,7 +222,7 @@ class _CoffeeDetailScreenState extends State<CoffeeDetailScreen> {
           decoration: BoxDecoration(
             color: isSelected
                 ? theme.primaryColor.withAlpha(25)
-                : CoffeeTheme.secondaryColor,
+                : Colors.transparent,
             border: Border.all(
               color: isSelected
                   ? theme.primaryColor

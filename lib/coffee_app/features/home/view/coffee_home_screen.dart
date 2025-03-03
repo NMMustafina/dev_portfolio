@@ -191,7 +191,7 @@ class _CoffeeHomeScreenState extends State<CoffeeHomeScreen> {
                 end: Alignment.bottomLeft,
                 colors: [
                   CoffeeTheme.darkBackgroundColor,
-                  CoffeeTheme.searchFieldFillColor,
+                  CoffeeTheme.searchFieldColor,
                 ],
               ),
             ),
@@ -554,7 +554,7 @@ class CoffeeMockService {
       name: 'Cloudy Foam',
       description:
           'Americano is a classic coffee drink made by diluting espresso with hot water. This preparation method gives Americano a milder taste compared to pure espresso while preserving its characteristic aroma and slight bitterness.\n\nTraditionally, an Americano is made by adding 90–150 ml of hot water to 30 ml of espresso, making it similar in strength to filter coffee but with a richer flavor. This drink is popular among those who enjoy a smooth yet invigorating coffee without milk.\n\nIt is believed that Americano originated during World War II when American soldiers in Europe diluted strong Italian espresso with water to resemble the filter coffee they were accustomed to.',
-      price: 4.53,
+      price: 4.15,
       rating: 4.7,
       votes: 230,
       category: 'Americano',
@@ -682,7 +682,7 @@ class CoffeeCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '\$${coffee.price}',
+                      '\$${coffee.price.toStringAsFixed(2)}',
                       style: theme.textTheme.headlineSmall?.copyWith(
                         fontSize: 18,
                       ),
