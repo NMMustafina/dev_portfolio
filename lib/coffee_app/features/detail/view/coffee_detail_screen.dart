@@ -1,4 +1,5 @@
 import 'package:dev_portfolio/coffee_app/features/features.dart';
+import 'package:dev_portfolio/coffee_app/models/models.dart';
 import 'package:dev_portfolio/coffee_app/theme/coffee_theme.dart';
 import 'package:dev_portfolio/src/src.dart';
 import 'package:flutter/material.dart';
