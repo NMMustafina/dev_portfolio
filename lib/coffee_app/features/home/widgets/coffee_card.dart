@@ -89,7 +89,7 @@ class CoffeeCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '\$${coffee.price.toStringAsFixed(2)}',
+                        '\$${coffee.getPriceForSize('M').toStringAsFixed(2)}',
                         style: theme.textTheme.headlineSmall?.copyWith(
                           fontSize: 18,
                         ),

@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 
 class CoffeeOrderScreen extends StatefulWidget {
   final CoffeeData coffee;
-  const CoffeeOrderScreen({super.key, required this.coffee});
+  final String selectedSize;
+  const CoffeeOrderScreen(
+      {super.key, required this.coffee, required this.selectedSize});
 
   @override
   State<CoffeeOrderScreen> createState() => _CoffeeOrderScreenState();
@@ -15,7 +17,16 @@ class _CoffeeOrderScreenState extends State<CoffeeOrderScreen> {
   bool isDeliverySelected = true;
   int itemCount = 1;
   double deliveryFee = 1.0;
-  double get totalPrice => (widget.coffee.price * itemCount) + deliveryFee;
+  late String selectedSize;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedSize = widget.selectedSize;
+  }
+
+  double get totalPrice =>
+      (widget.coffee.getPriceForSize(selectedSize) * itemCount) + deliveryFee;
 
   @override
   Widget build(BuildContext context) {
@@ -270,7 +281,7 @@ class _CoffeeOrderScreenState extends State<CoffeeOrderScreen> {
                             ?.copyWith(color: CoffeeTheme.primaryTextColor),
                       ),
                       Text(
-                        '\$${(widget.coffee.price * itemCount).toStringAsFixed(2)}',
+                        '\$${(widget.coffee.getPriceForSize(selectedSize) * itemCount).toStringAsFixed(2)}',
                         style: theme.textTheme.bodyMedium?.copyWith(
                             fontWeight: FontWeight.w600,
                             color: CoffeeTheme.primaryTextColor),

@@ -1,3 +1,4 @@
+import 'package:dev_portfolio/coffee_app/features/detail/widgets/widgets.dart';
 import 'package:dev_portfolio/coffee_app/features/features.dart';
 import 'package:dev_portfolio/coffee_app/models/models.dart';
 import 'package:dev_portfolio/coffee_app/theme/coffee_theme.dart';
@@ -72,15 +73,7 @@ class _CoffeeDetailScreenState extends State<CoffeeDetailScreen> {
                   'Ice/Hot',
                   style: theme.textTheme.bodySmall,
                 ),
-                Row(
-                  children: [
-                    _buildIcon(Assets.coffeeApp.icons.bike.image()),
-                    SizedBox(width: 12),
-                    _buildIcon(Assets.coffeeApp.icons.bean.image()),
-                    SizedBox(width: 12),
-                    _buildIcon(Assets.coffeeApp.icons.milk.image()),
-                  ],
-                ),
+                CoffeeIconsRow(),
               ],
             ),
             SizedBox(height: 8),
@@ -124,14 +117,14 @@ class _CoffeeDetailScreenState extends State<CoffeeDetailScreen> {
             SizedBox(height: 16),
             Text('Size', style: theme.textTheme.headlineSmall),
             SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: widget.coffee.sizes
-                  .map((size) => _sizeButton(size))
-                  .toList()
-                  .expand((widget) => [widget, SizedBox(width: 16)])
-                  .toList()
-                ..removeLast(),
+            CoffeeSizeSelector(
+              sizes: widget.coffee.sizes,
+              selectedSize: selectedSize,
+              onSizeSelected: (size) {
+                setState(() {
+                  selectedSize = size;
+                });
+              },
             ),
           ],
         ),
@@ -161,7 +154,7 @@ class _CoffeeDetailScreenState extends State<CoffeeDetailScreen> {
                 ),
                 SizedBox(height: 4),
                 Text(
-                  '\$${widget.coffee.price.toStringAsFixed(2)}',
+                  'Price: \$${widget.coffee.getPriceForSize(selectedSize).toStringAsFixed(2)}',
                   style: theme.textTheme.headlineSmall?.copyWith(
                     fontSize: 18,
                     color: theme.primaryColor,
@@ -175,8 +168,10 @@ class _CoffeeDetailScreenState extends State<CoffeeDetailScreen> {
                 onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>
-                        CoffeeOrderScreen(coffee: widget.coffee),
+                    builder: (context) => CoffeeOrderScreen(
+                      coffee: widget.coffee,
+                      selectedSize: selectedSize,
+                    ),
                   ),
                 ),
                 style: theme.elevatedButtonTheme.style,
@@ -186,59 +181,6 @@ class _CoffeeDetailScreenState extends State<CoffeeDetailScreen> {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildIcon(Image image) {
-    return Container(
-      padding: EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: CoffeeTheme.secondaryColor,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: SizedBox(
-        height: 20,
-        width: 20,
-        child: image,
-      ),
-    );
-  }
-
-  Widget _sizeButton(String size) {
-    final theme = Theme.of(context);
-    final bool isSelected = selectedSize == size;
-
-    return Expanded(
-      child: GestureDetector(
-        onTap: () {
-          setState(() {
-            selectedSize = size;
-          });
-        },
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: isSelected
-                ? theme.primaryColor.withAlpha(25)
-                : Colors.transparent,
-            border: Border.all(
-              color: isSelected
-                  ? theme.primaryColor
-                  : theme.secondaryHeaderColor.withAlpha(75),
-            ),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Text(
-            size,
-            style: theme.textTheme.bodyMedium?.copyWith(
-              color: isSelected
-                  ? theme.primaryColor
-                  : CoffeeTheme.primaryTextColor,
-            ),
-          ),
         ),
       ),
     );
